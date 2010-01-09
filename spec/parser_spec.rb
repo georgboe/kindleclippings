@@ -1,10 +1,10 @@
 # encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Kindleclippings" do
+describe "Parser" do
   
   before(:each) do
-    @parser = KindleClippings::ClippingParser.new
+    @parser = KindleClippings::Parser.new
   end
   
   it "should parse clippings" do
@@ -95,18 +95,8 @@ EOF
     note.content.should eql("hello world\nworld hello\nhello world\nworld hello")
   end
   
-  it "should show the clipping properly with the to_s method" do
-    
-    expected =<<EOF
-Book title (Name of author)
-- Highlight Loc. 1942 | Added on Wednesday, December 23, 2009, 09:37 PM
-
-This is the content.
-EOF
-    expected.chomp!
-    
-    clipping = KindleClippings::Clipping.new('Book title', 'Name of author', 'Highlight', '1942', 'Wednesday, December 23, 2009, 09:37 PM', 'This is the content.')
-    
-    clipping.to_s.should eql(expected)
-  end
+  
 end
+
+
+

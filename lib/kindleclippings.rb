@@ -1,15 +1,15 @@
 # encoding: utf-8
 module KindleClippings
   
-  class ClippingParser
-    require File.expand_path(File.dirname(__FILE__) + '/clipping.rb')
+  class Parser
+    ['clipping', 'clippingresult'].each { |file| require File.expand_path(File.dirname(__FILE__) + '/' + file) }
     
     def parse_file(path)
       parse(open(path).read)
     end
     
     def parse(filecontent)
-      @clippings = Array.new
+      @clippings = ClippingResult.new
       
       filecontent.split("=" * 10).each do |clipping|
         
