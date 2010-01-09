@@ -24,6 +24,7 @@ require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.libs << 'lib' << 'spec'
   spec.spec_files = FileList['spec/**/*_spec.rb']
+  spec.spec_opts = ["--format", "specdoc", "--colour"]
 end
 
 Spec::Rake::SpecTask.new(:rcov) do |spec|
