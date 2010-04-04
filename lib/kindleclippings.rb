@@ -5,7 +5,7 @@ module KindleClippings
     ['clipping', 'clippingresult'].each { |file| require File.expand_path(File.dirname(__FILE__) + '/' + file) }
     
     def parse_file(path)
-      parse(open(path).read)
+      parse(File.open(path, :encoding => "UTF-8").read)
     end
     
     def parse(filecontent)
