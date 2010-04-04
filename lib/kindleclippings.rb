@@ -5,7 +5,16 @@ module KindleClippings
     ['clipping', 'clippingresult'].each { |file| require File.expand_path(File.dirname(__FILE__) + '/' + file) }
     
     def parse_file(path)
-      parse(File.open(path, :encoding => "UTF-8").read)
+      
+      file_content = String.new
+      
+      if RUBY_VERSION =~ /^1\.8/
+        file_content = open(path).read
+      else
+        file_content = File.open(path, :encoding => "UTF-8").read
+      end
+      
+      parse(file_content)
     end
     
     def parse(filecontent)
