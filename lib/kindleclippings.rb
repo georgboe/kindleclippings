@@ -40,7 +40,7 @@ module KindleClippings
       
       lines = Array.new
       
-      if RUBY_VERSION == "1.9.1"
+      if RUBY_VERSION > "1.9.1"
         lines = clipping.lines.to_a
       else
         lines = clipping.to_a
