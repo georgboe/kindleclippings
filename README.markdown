@@ -39,6 +39,8 @@ The annotations can also be parsed directly.
 
 ### Retrieve only the information you care about
 
+#### Annotation types
+
 You can retrieve only the annotationstypes you care about. After parsing, you can call `highlights`, `notes` or `bookmarks` on the collection to get only annotations of that type.
  
     require 'kindleclippings'
@@ -49,3 +51,16 @@ You can retrieve only the annotationstypes you care about. After parsing, you ca
     clippings.notes      # All the notes
     clippings.highlights # All the highlights
     clippings.bookmarks  # All the bookmarks
+
+#### Author and book title
+
+You can filter the results by author and booktitle by using the methods `by_author` and `by_book` on a `ClippingResult` object.
+
+    require 'kindleclippings'
+
+    parser = KindleClippings::Parser.new
+    clippings = parser.parse_file('My Clippings.txt')
+
+    clippings.by_author('Malcolm Gladwell') # All annotations for all the books by Malcolm Gladwell
+
+    clippings.by_book('Born to Run') # All annotations for the book Born to Run
