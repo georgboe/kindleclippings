@@ -57,11 +57,8 @@ module KindleClippings
       type, location, date = *second_line
       content = String.new
       
-      if type == "Note"
-        content = lines[3..-1].join("")
-      else
-        content = lines[3]
-      end
+      content = lines[3..-1].join("")
+      
       Clipping.new(title, author, type.to_sym, location, date, content.strip)
     end
   end
