@@ -6,6 +6,7 @@ require 'clippingresult'
 require 'date'
 require 'spec'
 require 'spec/autorun'
+require 'rubygems' if RUBY_VERSION < "1.9.1"
 require 'mocha'
 
 Spec::Runner.configure do |config|
