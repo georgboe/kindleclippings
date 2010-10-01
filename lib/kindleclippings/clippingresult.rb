@@ -26,13 +26,7 @@ module KindleClippings
     
     def filter_by_property(property, value)
       return self unless value
-      
-      case value
-      when String
-        self.select { |annotation| annotation.send(property).downcase == value.downcase }
-      when Symbol
-        self.select { |annotation| annotation.send(property) == value }
-      end
+      self.select { |annotation| annotation.send(property).downcase == value.downcase }
     end
     
   end
