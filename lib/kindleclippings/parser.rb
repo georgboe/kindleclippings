@@ -4,7 +4,7 @@ module KindleClippings
   class Parser
     
     def parse_file(path)
-      file_content = open(path).read
+      file_content = open(path, 'r:utf-8').read
       
       parse(file_content)
     end
