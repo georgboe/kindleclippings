@@ -64,3 +64,9 @@ You can filter the results by author and booktitle by using the methods `by_auth
     clippings.by_author('Malcolm Gladwell') # All annotations for all the books by Malcolm Gladwell
 
     clippings.by_book('Born to Run') # All annotations for the book Born to Run
+
+## Contributors
+
+  * Georg Alexander Bøe
+  * Masatomo Nakano
+  * brokensandals
