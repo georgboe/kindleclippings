@@ -70,3 +70,4 @@ You can filter the results by author and booktitle by using the methods `by_auth
   * Georg Alexander Bøe
   * Masatomo Nakano
   * brokensandals
+  * fboucheros
