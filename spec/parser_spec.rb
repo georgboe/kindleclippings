@@ -113,6 +113,19 @@ EOF
     clipping.content.should eql("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit est semper erat fringilla aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed vel urna augue, et fermentum ante. Maecenas eget arcu id eros consectetur vulputate. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ut sollicitudin orci. Donec in urna lacinia urna sodales posuere sit amet ut nulla. Duis quis quam et dolor dignissim accumsan. Vestibulum porttitor elit at dolor euismod dapibus scelerisque lacus porta. In vel egestas nunc. Curabitur dapibus iaculis enim eu mattis. Pellentesque quis justo eget ligula congue sagittis sit amet sit amet lorem. Ut augue eros, laoreet consectetur sagittis id, luctus quis dolor. Mauris porta, mauris sed gravida varius, enim enim iaculis felis, vitae blandit arcu orci sed nibh. Proin volutpat lobortis metus a dapibus. Fusce ac quam cursus lorem consequat aliquet. Nulla odio lectus, eleifend sit amet eleifend ac, eleifend quis diam. Mauris malesuada, odio eget hendrerit rhoncus, lectus odio laoreet arcu, ac mattis mi ante fringilla nibh.\n\nUt mauris turpis, cursus non interdum quis, porta vel augue. Pellentesque id ornare ipsum. Morbi vestibulum, purus id consequat molestie, eros lacus congue leo, a lacinia lectus velit nec augue. Aliquam erat volutpat. Cras consectetur porttitor leo sit amet pulvinar. Nunc dignissim justo non mauris eleifend tempus vel a augue. Curabitur accumsan, dui consequat consequat rhoncus, enim nisl lobortis neque, non placerat nulla sem ut leo. Vivamus turpis lacus, rhoncus vitae pellentesque ac, dignissim non lorem. Praesent ullamcorper nisi suscipit mi ornare suscipit. Maecenas pharetra urna quis ante vulputate ac congue lacus hendrerit. Nunc nunc lorem, convallis eget mollis sit amet, laoreet eu nunc.\n\nInteger ut eros ac tellus egestas tempus placerat et arcu. Nullam porttitor est eu purus commodo tempor. Nullam varius, lacus ut porttitor fringilla, nibh turpis molestie urna, at mattis quam felis sit amet libero. Duis orci sapien, tempus nec mattis id, congue sed turpis. Aenean accumsan, lectus in malesuada blandit, felis nisl consectetur lacus, sed vehicula urna diam placerat neque. Nulla porta orci at ante elementum commodo quis vulputate neque. Aliquam quis leo sit amet lacus mollis egestas. Vivamus ac massa nec felis consectetur tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla facilisi. Nullam non dolor nisl, eu pretium est.")
   end
   
+  it "should use the entire line as title if no author is available" do
+    input =<<EOF
+Static Code Analysis and Code Contracts 
+- Note Loc. 1 | Added on Monday, August 29, 2011, 09:06 AM
+
+This is a note.
+EOF
+    clipping = @parser.send(:parse_clipping, input)
+
+    clipping.should_not be_nil
+    clipping.book_title.should eql("Static Code Analysis and Code Contracts")
+    clipping.author.should eql("")
+  end
   
 end
 
