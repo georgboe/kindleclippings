@@ -52,9 +52,9 @@ You can retrieve only the annotationstypes you care about. After parsing, you ca
     clippings.highlights # All the highlights
     clippings.bookmarks  # All the bookmarks
 
-#### Author and book title
+#### Author, book title and date
 
-You can filter the results by author and booktitle by using the methods `by_author` and `by_book` on a `ClippingResult` object.
+You can filter the results by author, book title or date by using the methods `by_author`, `by_book` and `by_date` on a `ClippingResult` object.
 
     require 'kindleclippings'
 
@@ -64,6 +64,8 @@ You can filter the results by author and booktitle by using the methods `by_auth
     clippings.by_author('Malcolm Gladwell') # All annotations for all the books by Malcolm Gladwell
 
     clippings.by_book('Born to Run') # All annotations for the book Born to Run
+
+    clippings.by_date(Date.new(2011, 10, 1), Date.new(2011, 10, 31)) # All annotations for October 2011
 
 ## Contributors
 
