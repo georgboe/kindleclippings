@@ -6,7 +6,7 @@ describe "ClippingResult" do
   before(:each) do
     @clippings = KindleClippings::ClippingResult.new
 
-    @clippings << KindleClippings::Clipping.new('A highlighted book', 'Malcolm Gladwell', :Highlight, '1942', 'Wednesday, December 23, 2009, 09:37 PM', 'This is the content.')
+    @clippings << KindleClippings::Clipping.new('A highlighted book', 'Malcolm Gladwell', :Highlight, '1942', 'Friday, October 23, 2009, 09:37 PM', 'This is the content.')
     @clippings << KindleClippings::Clipping.new('Another highlighted book', 'Name of author', :Highlight, '1942', 'Wednesday, December 23, 2009, 09:37 PM', 'This is the content.')
     @clippings << KindleClippings::Clipping.new('A bookmark book', 'Malcolm Gladwell', :Bookmark, '1942', 'Wednesday, December 23, 2009, 09:37 PM', 'This is the content.')
     @clippings << KindleClippings::Clipping.new('Another bookmark book', 'Name of author', :Bookmark, '1942', 'Wednesday, December 23, 2009, 09:37 PM', 'This is the content.')
@@ -62,5 +62,20 @@ describe "ClippingResult" do
   it "should give me all annotations by book" do
     result = @clippings.by_book("born to run")
     result.length.should eql(2)
+  end
+
+  it "should filter annotations by date" do
+    from = Date.new(2009, 10, 23)
+    to = Date.new(2009, 11, 1)
+    result = @clippings.by_date(from, to)
+    result.length.should eql(1)
+  end
+
+  it "should return all items if date is invalid" do
+    expected = @clippings.length
+
+    @clippings.by_date(nil, Date.today).length.should eql(expected)
+    @clippings.by_date(Date.today, nil).length.should eql(expected)
+
   end
 end

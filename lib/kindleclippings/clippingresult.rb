@@ -21,6 +21,11 @@ module KindleClippings
     def by_book(book)
       filter_by_property(:book_title, book)
     end
+
+    def by_date(from, to)
+      return self unless from && to
+      self.select { |annotation| annotation.added_on >= from && annotation.added_on <= to }
+    end
     
     private
     
