@@ -9,7 +9,7 @@ This library will parse these annotations/clippings and give you an array of rub
 
 To install kindleclippings just run
 
-    % sudo gem install kindleclippings
+    % gem install kindleclippings
 
 ## Usage
 
@@ -73,3 +73,4 @@ You can filter the results by author, book title or date by using the methods `b
   * Masatomo Nakano
   * brokensandals
   * fboucheros
+  * David Ramalho

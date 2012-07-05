@@ -127,6 +127,25 @@ EOF
     clipping.author.should eql("")
   end
   
+  it "should support page information" do
+    input =<<EOF
+Book title (Author)
+- Highlight on Page 142 | Loc. 2170-74 | Added on Tuesday, July 03, 2012, 07:41 PM
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit sem, blandit rhoncus iaculis interdum, ultrices sed sem. Nullam lacus urna, interdum eu fringilla et, fringilla id libero.
+EOF
+  clipping = @parser.send(:parse_clipping, input)
+
+  clipping.should_not be_nil
+  clipping.book_title.should eql("Book title")
+  clipping.author.should eql("Author")
+  clipping.type.should eql(:Highlight)
+  clipping.added_on.should eql(DateTime.new(2012, 07, 03, 19, 41, 00))
+  clipping.content.should eql("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit sem, blandit rhoncus iaculis interdum, ultrices sed sem. Nullam lacus urna, interdum eu fringilla et, fringilla id libero.")
+  clipping.page.should eql(142)
+
+  clipping.to_s.should eql(input.rstrip)
+  end
 end
 
 
