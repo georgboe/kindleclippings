@@ -22,4 +22,16 @@ EOF
     
     clipping.to_s.should eql(expected)
   end
+
+  it "should handle dates that include seconds" do
+    title = 'The Clean Coder: A Code of Conduct for Professional Programmers'
+    author = 'Martin, Robert C.'
+    type = :Highlight
+    location = '1637-1639'
+    added_on = 'Friday, August 10, 2012 2:10:36 AM'
+    content = 'The bottom line is that TDD works...'
+
+    clipping = KindleClippings::Clipping.new(title, author, type, location, added_on, content)
+    clipping.added_on.should == DateTime.new(2012, 8, 10, 2, 10,36)
+  end
 end

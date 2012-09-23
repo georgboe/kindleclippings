@@ -4,6 +4,7 @@ module KindleClippings
     require 'date'
     
     attr_accessor :book_title, :author, :type, :location, :added_on, :content, :page
+    KINDLE_TOUCH_DATE_FORMAT = "%A, %B %d, %Y  %I:%M:%S %p"
 
     def initialize()
     end
@@ -13,7 +14,13 @@ module KindleClippings
       @author = author
       @type = type
       @location = location
-      @added_on = DateTime.strptime(added_on, "%A, %B %d, %Y, %I:%M %p")
+
+      begin
+        @added_on = DateTime.strptime(added_on, "%A, %B %d, %Y, %I:%M %p")
+      rescue ArgumentError => e
+        @added_on = DateTime.strptime(added_on, KINDLE_TOUCH_DATE_FORMAT )
+      end
+
       @content = content
       @page = page.to_i
     end

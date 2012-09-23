@@ -37,7 +37,7 @@ module KindleClippings
       end
       
       first_line = lines[0].strip.scan(/^(.+) \((.+)\)$/i).first
-      second_line = lines[1].strip.scan(/^- (.+?) (?:on page (\d+) \| |)Loc. ([0-9-]*?) +\| Added on (.+)$/i).first
+      second_line = lines[1].strip.scan(/^-\s(?:Your\s)?(\w+) (?:on page (\d+) \| |)Loc(?:ation)?\.? ([0-9-]*?) +\| Added on (.+)$/i).first
       
       if first_line.nil?
         title = lines[0].strip

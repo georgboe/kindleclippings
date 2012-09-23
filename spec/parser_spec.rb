@@ -6,7 +6,21 @@ describe "Parser" do
   before(:each) do
     @parser = KindleClippings::Parser.new
   end
-  
+
+  it "should parse highlights from the Kindle Touch, which have the word 'Your' before 'Highlight'" do
+    input =<<EOF
+The Clean Coder: A Code of Conduct for Professional Programmers (Martin, Robert C.)
+- Your Highlight Location 1637-1639 | Added on Friday, August 10, 2012 2:10:36 AM
+
+The bottom line is that TDD works, and everybody needs to get over it. I know this sounds strident and unilateral, but given the record I don’t think surgeons should have to defend hand-washing, and I don’t think programmers should have to defend TDD.
+EOF
+    highlight = @parser.send(:parse_clipping, input)
+    highlight.book_title.should =~ /^The Clean Coder/
+    highlight.author.should eql('Martin, Robert C.')
+    highlight.type.should eql(:Highlight)
+    highlight.location.should == '1637-1639'
+  end
+
   it "should parse clippings" do
     input =<<EOF
 Freakonomics Rev Ed (Steven D., Levitt)
