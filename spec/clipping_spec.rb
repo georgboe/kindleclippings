@@ -34,4 +34,11 @@ EOF
     clipping = KindleClippings::Clipping.new(title, author, type, location, added_on, content)
     clipping.added_on.should == DateTime.new(2012, 8, 10, 2, 10,36)
   end
+
+  it "should parse alternative format" do
+    added_on = "Sunday, 22 January 12 22:51:04 GMT+01:00"
+
+    clipping = KindleClippings::Clipping.new('Book title', 'Name of author', :Highlight, '1942', added_on, 'This is the content.')
+    clipping.added_on.should eql(DateTime.new(2012, 01, 22, 22, 51, 04, '+1'))
+  end
 end

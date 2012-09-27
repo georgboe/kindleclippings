@@ -4,7 +4,9 @@ module KindleClippings
     require 'date'
     
     attr_accessor :book_title, :author, :type, :location, :added_on, :content, :page
+    DEFAULT_DATE_FORMAT = "%A, %B %d, %Y, %I:%M %p"
     KINDLE_TOUCH_DATE_FORMAT = "%A, %B %d, %Y  %I:%M:%S %p"
+    ALTERNATIVE_DATE_FORMAT = "%A, %d %B %y %H:%M:%S %Z"
 
     def initialize()
     end
@@ -15,11 +17,15 @@ module KindleClippings
       @type = type
       @location = location
 
-      begin
-        @added_on = DateTime.strptime(added_on, "%A, %B %d, %Y, %I:%M %p")
-      rescue ArgumentError => e
-        @added_on = DateTime.strptime(added_on, KINDLE_TOUCH_DATE_FORMAT )
+      [DEFAULT_DATE_FORMAT, KINDLE_TOUCH_DATE_FORMAT, ALTERNATIVE_DATE_FORMAT].each do |format|
+        break if @added_on
+
+        begin
+          @added_on = DateTime.strptime(added_on, format)
+        rescue ArgumentError => e
+        end
       end
+      
 
       @content = content
       @page = page.to_i
