@@ -75,3 +75,4 @@ You can filter the results by author, book title or date by using the methods `b
   * fboucheros
   * David Ramalho
   * Kenrick [aka Ken] Chien
+  * Christophe Philemotte
