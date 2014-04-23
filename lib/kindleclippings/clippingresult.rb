@@ -31,7 +31,14 @@ module KindleClippings
     
     def filter_by_property(property, value)
       return self unless value
-      self.select { |annotation| annotation.send(property).downcase == value.downcase }
+
+      if value.is_a?(Regexp)
+        select_blk = lambda {|annotation| annotation.send(property) =~ value }
+      else
+        select_blk = lambda {|annotation| annotation.send(property).casecmp(value) == 0 }
+      end
+
+      self.select(&select_blk)
     end
     
   end
