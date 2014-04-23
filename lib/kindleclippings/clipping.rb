@@ -36,5 +36,44 @@ module KindleClippings
       "- #{@type} #{('on Page ' + @page.to_s + ' | ') if @page > 0}Loc. #{@location} | Added on #{@added_on.strftime('%A, %B %d, %Y, %I:%M %p')}\n\n" +
       "#{@content}"
     end
+
+    def <=>(other_clipping)
+      if @book_title != other_clipping.book_title
+        return @book_title <=> other_clipping.book_title
+      end
+      # Same book
+
+      if @page != other_clipping.page
+        return @page <=> other_clipping.page
+      end
+      # Same book and page
+
+      if @location != other_clipping.location
+        return locations_cmp(@location, other_clipping.location)
+      end
+      # Same book, page and location
+
+      @added_on <=> other_clipping.added_on
+    end
+
+    private
+
+    def locations_cmp(a, b)
+      return 0 if a == b
+
+      a_parts = a.split('-').map(&:to_i)
+      b_parts = b.split('-').map(&:to_i)
+
+      if a_parts[0] != b_parts[0] # beginning differs
+        return a_parts[0] <=> b_parts[0] # compare by beginning
+      end
+      # Same beginning
+
+      if a_parts[1].nil? || b_parts[1].nil? # end missing from a location
+        return 0 # consider equal
+      end
+
+      a_parts[1] <=> b_parts[1] # compare by end
+    end
   end
 end
