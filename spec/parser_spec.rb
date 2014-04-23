@@ -160,6 +160,22 @@ EOF
 
   clipping.to_s.should eql(input.rstrip)
   end
+
+  it "should parse highlights that have a location prefixed with 'on'" do
+    input =<<EOF
+The Clean Coder: A Code of Conduct for Professional Programmers (Martin, Robert C.)
+- Your Highlight on Location 1637-1639 | Added on Friday, August 10, 2012 2:10:36 AM
+
+The bottom line is that TDD works, and everybody needs to get over it. I know this sounds strident and unilateral, but given the record I don’t think surgeons should have to defend hand-washing, and I don’t think programmers should have to defend TDD.
+EOF
+
+    highlight = nil
+    expect { highlight = @parser.send(:parse_clipping, input) }.not_to raise_error
+    highlight.book_title.should =~ /^The Clean Coder/
+    highlight.author.should eql('Martin, Robert C.')
+    highlight.type.should eql(:Highlight)
+    highlight.location.should == '1637-1639'
+  end
 end
 
 
