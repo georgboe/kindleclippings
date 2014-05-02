@@ -52,6 +52,13 @@ describe "ClippingResult" do
     
     invalid_parameter = @clippings.send(:filter_by_property, :type, nil)
     invalid_parameter.length.should eql(8)
+
+    clippings = @clippings.send(:filter_by_property, :type, /Bookmark|Note/)
+    clippings.length.should eql(4)
+    clippings[0].book_title.should eql('A bookmark book')
+    clippings[1].book_title.should eql('Another bookmark book')
+    clippings[2].book_title.should eql('A note')
+    clippings[3].book_title.should eql('Another note')
   end
   
   it "should give me all annotations by author" do
@@ -59,8 +66,30 @@ describe "ClippingResult" do
     result.length.should eql(3)
   end
   
+  it "should give me all annotations by author matching a regex" do
+    result = @clippings.by_author(/malcolm/)
+    result.length.should eql(0)
+
+    result = @clippings.by_author(/Malcolm/)
+    result.length.should eql(3)
+
+    result = @clippings.by_author(/malcolm/i)
+    result.length.should eql(3)
+  end
+
   it "should give me all annotations by book" do
     result = @clippings.by_book("born to run")
+    result.length.should eql(2)
+  end
+
+  it "should give me all annotations by book matching a regex" do
+    result = @clippings.by_book(/born/)
+    result.length.should eql(0)
+
+    result = @clippings.by_book(/Born/)
+    result.length.should eql(2)
+
+    result = @clippings.by_book(/born/i)
     result.length.should eql(2)
   end
 
