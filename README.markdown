@@ -76,3 +76,4 @@ You can filter the results by author, book title or date by using the methods `b
   * David Ramalho
   * Kenrick [aka Ken] Chien
   * Christophe Philemotte
+  * Aggelos Orfanakos
