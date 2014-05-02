@@ -4,7 +4,7 @@ require 'kindleclippings'
 require 'date'
 require 'rspec'
 require 'rubygems' if RUBY_VERSION < "1.9.1"
-require 'mocha'
+require 'mocha/api'
 
 RSpec.configure do |config|
   config.mock_with :mocha
