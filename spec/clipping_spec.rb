@@ -41,4 +41,63 @@ EOF
     clipping = KindleClippings::Clipping.new('Book title', 'Name of author', :Highlight, '1942', added_on, 'This is the content.')
     clipping.added_on.should eql(DateTime.new(2012, 01, 22, 22, 51, 04, '+1'))
   end
+
+  describe '#<=>' do
+    let(:title1) { 'a title' } # < title2
+    let(:title2) { 'b title' } # > title1
+    let(:page1) { '27' } # > page2
+    let(:page2) { '11' } # < page1
+    let(:location1) { '123-133' } # < location2
+    let(:location2) { '134-144' } # > location1
+    let(:added1) { 'Sunday, 22 January 12 22:51:04 GMT+01:00' } # > added2
+    let(:added2) { 'Sunday, 22 January 12 22:51:03 GMT+01:00' } # < added1
+
+    let(:clipping1) {
+      KindleClippings::Clipping.new(
+        title1, 'author', 'type', location1, added1, 'content', page1
+      )
+    }
+
+    let(:clipping2) {
+      KindleClippings::Clipping.new(
+        title2, 'author', 'type', location2, added2, 'content', page2
+      )
+    }
+
+    it 'compares clippings by book title' do
+      expect(clipping1).to be < clipping2
+    end
+
+    context 'books have same title' do
+      let(:title2) { title1 }
+
+      it 'compares clippings by page' do
+        expect(clipping1).to be > clipping2
+      end
+
+      context 'clippings have same page' do
+        let(:page2) { page1 }
+
+        it 'compares clippings by location' do
+          expect(clipping1).to be < clipping2
+        end
+
+        context 'clippings have same location start' do
+          let(:location2) { '123-132' }
+
+          it 'compares clippings by location end' do
+            expect(clipping1).to be > clipping2
+          end
+        end
+
+        context 'clippings have same location' do
+          let(:location2) { location1 }
+
+          it 'compares clippings by date added' do
+            expect(clipping1).to be > clipping2
+          end
+        end
+      end
+    end
+  end
 end
