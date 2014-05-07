@@ -1,6 +1,8 @@
 # encoding: utf-8
 module KindleClippings
   class Clipping
+    include Comparable
+
     require 'date'
     
     attr_accessor :book_title, :author, :type, :location, :added_on, :content, :page
