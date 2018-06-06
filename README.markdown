@@ -1,5 +1,9 @@
 # Kindleclippings
 
+
+### This project has [moved to GitLab](https://gitlab.com/georg/kindleclippings)
+
+
 Kindleclippings is a ruby library for parsing annotations created on your kindle.
 
 When you make annotations on a kindle, they are saved as a file called "My Clippings.txt" under the documents folder.   
